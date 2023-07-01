@@ -1,0 +1,41 @@
+import { FILTERS_BUTTONS } from "../consts"
+import {type FilterValue } from "../types"
+
+
+interface Props {
+    onFilterChenge: (filter: FilterValue) => void
+    filterSelected: FilterValue
+}
+
+const Filters: React.FC<Props> = ({filterSelected, onFilterChenge}) => {
+    // const handleClick = (filter: FilterValue): void => {
+
+    // }
+
+    return (
+        <ul className="filters">
+            {
+                Object.entries(FILTERS_BUTTONS).map(([key, {href, literal}]) => {
+                    const isSelected = key === filterSelected
+                    const className = isSelected ? 'selected' : ''
+
+                    return(
+                        <li key={key}>
+                            <a 
+                                href={href}
+                                className={className}
+                                onClick={(event) => {
+                                    event.preventDefault()
+                                    onFilterChenge(key as FilterValue)
+                                }}>
+                                {literal}
+                            </a>
+                        </li>
+                    )
+                })
+            }
+        </ul>
+    )
+}
+
+export default Filters
